@@ -1,1 +1,11 @@
+class Solution {
+public:
+    string longestCommonPrefix(vector<string>& strs) {
+        for (i = 0; i< strs[0].length(); i++) {
 
+        }
+        for (i = 1; i< strs.length(); i++) {
+
+        }
+    }
+};
