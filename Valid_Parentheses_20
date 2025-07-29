@@ -1,6 +1,42 @@
 class Solution {
 public:
     bool isValid(string s) {
+        string open = "({[";
+        string closed = ")}]";
+
+        int counter = 0;
+        int openNumb = 0;
+
+        if(s.length() == 0) {return false;}
+        if((s.length()%2) != 0) {return false;}
         
+        for(int i = 0; i < closed.length(); i++){
+            if(s[0] == closed[i]){return false;}
+        }
+
+        for(int i = 0; i < open.length(); i++){
+            if(s[s.length()-1] == open[i]){return false;}
+        }
+
+        for(int i = 0; i < (s.length()-1); i++){
+            for(int j = 0; j < open.length(); j++){
+                if(s[i] == open[j]) {
+                    counter++;
+                    openNumb++;
+                    for(int k = 0; k < closed.length(); k++){
+                        if(s[i+1] == closed[k]) {
+                            for(int l = 0; l < counter; l++){
+                                if((s[i-l] == '(') && (s[i+1+l] != ')')){return false;}
+                                if((s[i-l] == '{') && (s[i+1+l] != '}')){return false;}
+                                if((s[i-l] == '[') && (s[i+1+l] != ']')){return false;}
+                            }
+                            counter = 0;
+                        }
+                    }
+                }
+            }
+        }
+        if(openNumb != (s.length()/2)){return false;}
+        return true;
     }
 };
