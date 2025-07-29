@@ -6,6 +6,7 @@ public:
 private:
     string open   = "({[";
     string closed = ")}]";
+    string temp;
 
     bool isOpen(char subChar){
         for(int i = 0; i < open.length(); i++){
@@ -18,13 +19,20 @@ private:
     }
 
     string stringReduction(string s) {
+        std::cout<<s;
         if(s.length()>1){
-            if(isOpen(s[0]) && isOpen(s[1])) {
-                s = s[0]; 
-                s += stringReduction(s.erase(0,1));
-            }
             if(isFrontMatch(0, s) || isFrontMatch(1, s) || isFrontMatch(2, s)) {s.erase(0,2);}
         } 
+        if(s.length()>1){
+            if(isOpen(s[0]) && isOpen(s[1])){
+                temp = stringReduction(s.erase(0,1));
+                s = s[0]; 
+                s += temp;
+            }
+            else{
+                s = stringReduction(s);
+            }
+        }
         return s;
     }
 };
