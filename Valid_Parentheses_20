@@ -1,42 +1,30 @@
 class Solution {
 public:
     bool isValid(string s) {
-        string open = "({[";
-        string closed = ")}]";
+        return (stringReduction(s).length() == 0);
+    }
+private:
+    string open   = "({[";
+    string closed = ")}]";
 
-        int counter = 0;
-        int openNumb = 0;
-
-        if(s.length() == 0) {return false;}
-        if((s.length()%2) != 0) {return false;}
-        
-        for(int i = 0; i < closed.length(); i++){
-            if(s[0] == closed[i]){return false;}
-        }
-
+    bool isOpen(char subChar){
         for(int i = 0; i < open.length(); i++){
-            if(s[s.length()-1] == open[i]){return false;}
+            if(subChar == open[i]){return true;}
         }
+        return false;
+    }
+    bool isFrontMatch(int charIndex, string s){
+        return (s[0] == open[charIndex]) && (s[1] == closed[charIndex]);
+    }
 
-        for(int i = 0; i < (s.length()-1); i++){
-            for(int j = 0; j < open.length(); j++){
-                if(s[i] == open[j]) {
-                    counter++;
-                    openNumb++;
-                    for(int k = 0; k < closed.length(); k++){
-                        if(s[i+1] == closed[k]) {
-                            for(int l = 0; l < counter; l++){
-                                if((s[i-l] == '(') && (s[i+1+l] != ')')){return false;}
-                                if((s[i-l] == '{') && (s[i+1+l] != '}')){return false;}
-                                if((s[i-l] == '[') && (s[i+1+l] != ']')){return false;}
-                            }
-                            counter = 0;
-                        }
-                    }
-                }
+    string stringReduction(string s) {
+        if(s.length()>1){
+            if(isOpen(s[0]) && isOpen(s[1])) {
+                s = s[0]; 
+                s += stringReduction(s.erase(0,1));
             }
-        }
-        if(openNumb != (s.length()/2)){return false;}
-        return true;
+            if(isFrontMatch(0, s) || isFrontMatch(1, s) || isFrontMatch(2, s)) {s.erase(0,2);}
+        } 
+        return s;
     }
 };
