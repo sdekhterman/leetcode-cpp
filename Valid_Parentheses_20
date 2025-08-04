@@ -1,49 +1,15 @@
 class Solution {
 public:
     bool isValid(string s) {
-        return (stringReduction(s).length() == 0);
-    }
-private:
-    string open   = "({[";
-    string closed = ")}]";
-    string temp;
-
-    bool isOpen(char subChar){
-        for(int i = 0; i < open.length(); i++){
-            if(subChar == open[i]){return true;}
+        stack<char> st;
+        for(int i = 0; i < s.length(); i++){
+            if((s[i] == '(') || (s[i] == '{') || (s[i] == '[')){st.push(s[i]); continue;}
+            if(st.size() == 0) {return false;}
+            if((st.top() == '(') && (s[i] == ')')){st.pop();}
+            else if((st.top() == '{') && (s[i] == '}')){st.pop();}
+            else if((st.top() == '[') && (s[i] == ']')){st.pop();}
+            else{return false;}
         }
-        return false;
-    }
-    bool isClosed(char subChar){
-        for(int i = 0; i < open.length(); i++){
-            if(subChar == closed[i]){return true;}
-        }
-        return false;
-    }
-    bool isFrontMatch(int charIndex, string s){
-        return (s[0] == open[charIndex]) && (s[1] == closed[charIndex]);
-    }
-    bool isFrontMismatch(int charIndex, string s){
-        return (s[0] == open[charIndex]) && (s[1] != closed[charIndex]);
-    }
-
-    string stringReduction(string s) {
-        if(s.length()>1){
-            if(isOpen(s[0]) && isOpen(s[1])){
-                temp = stringReduction(s.substr(1));
-                s = s[0]; 
-                s += temp;
-            }
-            if(isOpen(s[0]) && isClosed(s[1])){
-                if(isFrontMismatch(0, s) || isFrontMismatch(1, s) || isFrontMismatch(2, s)) {
-                    return s;
-                }
-                if(isFrontMatch(0, s) || isFrontMatch(1, s) || isFrontMatch(2, s)) {
-                    s.erase(0,2);
-                    s = stringReduction(s);
-                }
-            }
-        }
-        return s;
+        return (st.size() == 0);
     }
 };
