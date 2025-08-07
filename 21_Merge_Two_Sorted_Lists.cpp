@@ -11,18 +11,19 @@
 class Solution {
 public:
     ListNode* mergeTwoLists(ListNode* list1, ListNode* list2) {
+        // check if the left or right list needs to be sorted in
         if((list1 == nullptr) && (list2 == nullptr))       {return nullptr;}
         else if ((list1 != nullptr) && (list2 == nullptr)) {return mergeList1(list1, list2);}
         else if ((list1 == nullptr) && (list2 != nullptr)) {return mergeList2(list1, list2);} 
         else if (list1->val < list2->val)                  {return mergeList1(list1, list2);} 
         else                                               {return mergeList2(list1, list2);}
 
+        // need a return outside of the ifs and this is the safest.
         return nullptr;
     }
 private:
-    ListNode dummy(0);
-    ListNode* tail = &dummy;
     ListNode* mergeList1(ListNode* list1, ListNode* list2) {
+        // depending on how many nodes remain in the reference list, alter the initialization of the returned node
         if (!list1->next) {
             ListNode* node = new ListNode(list1->val, mergeTwoLists(nullptr, list2));
             return node;
@@ -38,6 +39,7 @@ private:
     }
 
     ListNode* mergeList2(ListNode* list1, ListNode* list2) {
+        // depending on how many nodes remain in the reference list, alter the initialization of the returned node
         if (!list2->next) {
             ListNode* node = new ListNode(list2->val, mergeTwoLists(list1, nullptr));
             return node;
