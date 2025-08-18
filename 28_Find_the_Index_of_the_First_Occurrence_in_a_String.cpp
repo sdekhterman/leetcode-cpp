@@ -1,18 +1,13 @@
 class Solution {
 public:
     int strStr(string haystack, string needle) {
-        int subIndex = 0;
         for(int i = 0; i < haystack.size(); i++){
-            if(haystack[i] == needle[subIndex]){
-                cout<< needle[subIndex];
-                subIndex++;
-                if(subIndex == needle.size()){
-                    return i+1-needle.size();
+            if(haystack[i] == needle[0]){
+                for(int j = 0; j < needle.size(); j++){
+                    if((haystack[i+j] == haystack.size()) || (haystack[i+j] != needle[j])) {break;}
+                    if(needle.size() == (j+1)) {return i;}
                 }
-            } else{
-                subIndex = 0;
             }
-
         }
         return -1;
     }
