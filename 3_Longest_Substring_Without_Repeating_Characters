@@ -1,6 +1,19 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        
+        if (s.legnth()==0){return 0;}
+        if (s.legnth()==1){return 1;}
+        string s1 = s[0];
+        string s2 = s[0];
+        bool isCheckingS1 = true;
+        for(int i = 1, i < s.length(); i++) {
+            if(isCheckingS1){
+                for(int j = 0, j < s1.length(); j++) {
+                    if (s[i] == s1[j]) {
+                        s1.append(s[i]);
+                    }
+                }
+            }
+        }
     }
 };
