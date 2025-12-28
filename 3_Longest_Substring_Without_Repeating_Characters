@@ -4,13 +4,13 @@ public:
         if (s.length()==0){return 0;}
         if (s.length()==1){return 1;}
         string s1, s2;
-        int startS1 = 0, startS2 = 0, endS1 = 1, endS2 = 1; 
         s1 = s[0];
         s2 = s1;
-
         bool isCheckingS1 = true;
+        
         for(int i = 1; i < s.length(); i++) {
             if(isCheckingS1){
+                cout<< s[i] << endl;
                 for(int j = 0; j < s1.length(); j++) {
                     if (s[i] == s1[j]) {
                         isCheckingS1 = false;
@@ -23,7 +23,7 @@ public:
                         s1+=s[i];
                         cout << "===s1===" << endl;
                         cout<< s1 << endl;
-
+                        break;
                     }
                 }
             } else {
@@ -37,7 +37,7 @@ public:
                     if(j == (s2.length() -1)){
                         s2+=s[i];
                         cout << "===s2===" << endl;
-                        cout<< s2 << endl;
+                        break;
                     }
                 }
             }
