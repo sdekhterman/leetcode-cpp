@@ -1,19 +1,53 @@
 class Solution {
 public:
     int lengthOfLongestSubstring(string s) {
-        if (s.legnth()==0){return 0;}
-        if (s.legnth()==1){return 1;}
-        string s1 = s[0];
-        string s2 = s[0];
+        if (s.length()==0){return 0;}
+        if (s.length()==1){return 1;}
+        string s1, s2;
+        int startS1 = 0, startS2 = 0, endS1 = 1, endS2 = 1; 
+        s1 = s[0];
+        s2 = s1;
+
         bool isCheckingS1 = true;
-        for(int i = 1, i < s.length(); i++) {
+        for(int i = 1; i < s.length(); i++) {
             if(isCheckingS1){
-                for(int j = 0, j < s1.length(); j++) {
+                for(int j = 0; j < s1.length(); j++) {
                     if (s[i] == s1[j]) {
-                        s1.append(s[i]);
+                        isCheckingS1 = false;
+                        s2 = s[i];
+                        cout << "===break_s1===" << endl;
+                        cout<<s[i] << endl;
+                        break;
+                    } 
+                    if(j == (s1.length() -1)){
+                        s1+=s[i];
+                        cout << "===s1===" << endl;
+                        cout<< s1 << endl;
+
+                    }
+                }
+            } else {
+                for(int j = 0; j < s2.length(); j++) {
+                    if (s[i] == s2[j]) {
+                        cout << "===break_s2===" << endl;
+                        cout<<s[i] << endl;
+                        s2 = s[i];
+                        break;
+                    } 
+                    if(j == (s2.length() -1)){
+                        s2+=s[i];
+                        cout << "===s2===" << endl;
+                        cout<< s2 << endl;
                     }
                 }
             }
+            if(s2.length() > s1.length()){
+                    cout<<"clear" << endl;
+                    s1 = s2;
+                    s2.clear();
+                    isCheckingS1 = true;
+                }
         }
+        return s1.length();
     }
 };
