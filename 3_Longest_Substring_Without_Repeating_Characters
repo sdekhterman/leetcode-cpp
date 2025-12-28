@@ -3,51 +3,42 @@ public:
     int lengthOfLongestSubstring(string s) {
         if (s.length()==0){return 0;}
         if (s.length()==1){return 1;}
-        string s1, s2;
-        s1 = s[0];
-        s2 = s1;
-        bool isCheckingS1 = true;
+        int a1=0, a2=0, b1=0, b2=0;
+        bool isCheckingA = true;
         
         for(int i = 1; i < s.length(); i++) {
-            if(isCheckingS1){
-                cout<< s[i] << endl;
-                for(int j = 0; j < s1.length(); j++) {
-                    if (s[i] == s1[j]) {
-                        isCheckingS1 = false;
-                        s2 = s[i];
-                        cout << "===break_s1===" << endl;
-                        cout<<s[i] << endl;
+            if(isCheckingA){
+                for(int j = a1; j < (a1-a2 +1); j++) {
+                    if (s[i] == s[j]) {
+                        isCheckingA = false;
+                        b1 = j+=1;
+                        b2 = i;
                         break;
                     } 
-                    if(j == (s1.length() -1)){
-                        s1+=s[i];
-                        cout << "===s1===" << endl;
-                        cout<< s1 << endl;
+                    if(j == (a1-a2)){
+                        a2+=1;
                         break;
                     }
                 }
             } else {
-                for(int j = 0; j < s2.length(); j++) {
-                    if (s[i] == s2[j]) {
-                        cout << "===break_s2===" << endl;
-                        cout<<s[i] << endl;
-                        s2 = s[i];
+                for(int j = b1; j < (b1-b2 +1); j++) {
+                    if (s[i] == s[j]) {
+                        b1 = j+=1;
+                        b2 = i;
                         break;
                     } 
-                    if(j == (s2.length() -1)){
-                        s2+=s[i];
-                        cout << "===s2===" << endl;
+                    if(j == (b1-b2)){
+                        b2 += 1;
                         break;
                     }
                 }
             }
-            if(s2.length() > s1.length()){
-                    cout<<"clear" << endl;
-                    s1 = s2;
-                    s2.clear();
-                    isCheckingS1 = true;
-                }
+            if((b2-b1) > (a2-a1)){
+                a1 = b1;
+                a2 = b2;
+                isCheckingA = true;
+            }
         }
-        return s1.length();
+        return a2-a1+1;
     }
 };
