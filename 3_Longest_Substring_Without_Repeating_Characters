@@ -8,7 +8,7 @@ public:
         for(int i = 1; i < s.length(); i++) {
             for(int j = a; j < (b-a +1); j++) {
                 if (s[i] == s[j]) {
-                    a = j+=1;
+                    a = j+1;
                     b = i;
                     break;
                 }
