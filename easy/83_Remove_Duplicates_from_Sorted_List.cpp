@@ -12,11 +12,11 @@ class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
         if(head == nullptr) {return head;}
-        cout << head->val << endl;
         if(head->next != nullptr){
             if(head->val == head->next->val) {
                 if(head->next->next != nullptr) {
                     head->next = head->next->next;
+                    head = deleteDuplicates(head);
                 }
                 else{
                     head->next = nullptr;
