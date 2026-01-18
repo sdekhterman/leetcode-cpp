@@ -11,17 +11,18 @@
 class Solution {
 public:
     ListNode* deleteDuplicates(ListNode* head) {
-        if(head.next != nullptr){
-            if(head.val == head.next.val) {
-                if(head.next.next != nullptr) {
+        if(head == nullptr) {return head;}
+        cout << head->val << endl;
+        if(head->next != nullptr){
+            if(head->val == head->next->val) {
+                if(head->next->next != nullptr) {
+                    head->next = head->next->next;
                 }
                 else{
-
+                    head->next = nullptr;
                 }
             } 
-            else {
-
-            }
+            head->next = deleteDuplicates(head->next);
         }
         return head;
     }
