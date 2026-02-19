@@ -24,15 +24,21 @@ public:
         }
         if (3 == vectorSize) {
             TreeNode* left   = new TreeNode(nums[0]);
-            TreeNode* right  = new TreeNode(nums[1]);
-            TreeNode* center = new TreeNode(nums[2], left, right);
+            TreeNode* right  = new TreeNode(nums[2]);
+            TreeNode* center = new TreeNode(nums[1], left, right);
             return center;
         }
         int centerVal    = nums[vectorSize/2];
         std::vector<int>  leftVector;
         std::vector<int> rightVector;
-        leftVector.insert(  leftVector.begin(), nums.begin(), nums.begin() + vectorSize/2 - 1);
-        rightVector.insert(rightVector.begin(), nums.begin() + vectorSize/2 + 1, nums.end());
+        leftVector.insert(  leftVector.begin(), nums.begin(), nums.begin() + vectorSize/2);
+        rightVector.insert(rightVector.begin(), nums.begin() + vectorSize/2+1, nums.end());
+        // for(int i : leftVector) {
+        //     cout << i << endl;
+        // }
+        // for(int i : rightVector) {
+        //     cout << i << endl;
+        // }
         TreeNode* left   = sortedArrayToBST( leftVector);
         TreeNode* right  = sortedArrayToBST(rightVector);
         TreeNode* center = new TreeNode(centerVal, left, right);
