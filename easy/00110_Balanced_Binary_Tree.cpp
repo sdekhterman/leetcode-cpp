@@ -18,9 +18,8 @@ public:
     } 
 
     bool isBalanced(TreeNode* root) {
-
         if (root != nullptr) {
-            if(abs(height(root->left) - height(root->right)) > 2) {return false;}
+            if(abs(height(root->left) - height(root->right)) > 1) {return false;}
             return isBalanced(root-> left) && isBalanced(root-> right);
         }
         return true;
