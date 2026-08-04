@@ -124,11 +124,12 @@ public:
 
 
 // my third attempt where I implement depth-first search
+// my third attempt where I implement depth-first search
 
 class Solution {
 public:
     void dfsRecursiveStep(vector<vector<int>>& grid, int i, int j, int& perimeter, bool touchingLand) {
-        cout << i << ", " << j << ", " << grid[i][j] << endl;
+        cout << i << ", " << j << ", " << perimeter << endl ;
         if (!touchingLand) {
             if(1 == grid[i][j]) {touchingLand = true;}
             if (!touchingLand) {
@@ -142,19 +143,16 @@ public:
                     }
                     if ((j + 1) < grid[0].size())  {
                         if((0 == grid[i][j+1]) || (1 == grid[i][j+1])) {
-                            if (grid[i][j+1] > 0) {perimeter -= 1;}
                             dfsRecursiveStep(grid, i, j+1, perimeter, touchingLand);
                         }
                     }
                     if ((i - 1) >= 0) {
                         if((0 == grid[i-1][j]) || (1 == grid[i-1][j])) {
-                            if (grid[i-1][j] > 0) {perimeter -= 1;}
                             dfsRecursiveStep(grid, i-1, j, perimeter, touchingLand);
                         }
                     }
                     if ((j - 1) >= 0) {
                         if((0 == grid[i][j-1]) || (1 == grid[i][j-1])) {
-                            if (grid[i][j-1] > 0) {perimeter -= 1;}
                             dfsRecursiveStep(grid, i, j-1, perimeter, touchingLand);
                         }
                     }
@@ -168,33 +166,33 @@ public:
                 touchingLand = true;
 
                 if ((i + 1) < grid.size()) {
+                    if (grid[i+1][j] > 0) {perimeter -= 1;}
                     if(1 == grid[i+1][j]) {
                         dfsRecursiveStep(grid, i+1, j, perimeter, touchingLand);
                     }
                 }
                 if ((j + 1) < grid[0].size())  {
+                    if (grid[i][j+1] > 0) {perimeter -= 1;}
                     if(1 == grid[i][j+1]) {
-                        if (grid[i][j+1] > 0) {perimeter -= 1;}
                         dfsRecursiveStep(grid, i, j+1, perimeter, touchingLand);
                     }
                 }
                 if ((i - 1) >= 0) {
+                    if (grid[i-1][j] > 0) {perimeter -= 1;}
                     if(1 == grid[i-1][j]) {
-                        if (grid[i-1][j] > 0) {perimeter -= 1;}
                         dfsRecursiveStep(grid, i-1, j, perimeter, touchingLand);
                     }
                 }
                 if ((j - 1) >= 0) {
+                    if (grid[i][j-1] > 0) {perimeter -= 1;}
                     if(1 == grid[i][j-1]) {
-                        if (grid[i][j-1] > 0) {perimeter -= 1;}
                         dfsRecursiveStep(grid, i, j-1, perimeter, touchingLand);
                     }
                 }
             }
             
         }
-        // TODO: mak grid and perimeter class vars so they don't need to passed every function call to save on memory overhead. 
-            
+        // TODO: mak grid and perimeter class vars so they don't need to passed every function call to save on memory overhead.         
     }
 
     int islandPerimeter(vector<vector<int>>& grid) {
